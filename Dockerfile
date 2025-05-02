@@ -8,6 +8,8 @@ ARG VITE_API_BASE_URL
 
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
+WORKDIR /app
+
 COPY . .
 
 RUN bun install --ignore-scripts
@@ -20,7 +22,7 @@ FROM oven/bun:1.2.11-alpine as runner
 
 WORKDIR /app
 
-COPY --from=builder /dist/ .
+COPY --from=builder /app/dist/ .
 
 EXPOSE 5173
 
