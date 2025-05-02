@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build
+    name: Build & Push Image
     env:
         TAG: "ghcr.io/akalanka47000/scrapher-client:${{ github.sha }}-${{ github.run_attempt }}"
     permissions:
