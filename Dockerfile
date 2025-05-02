@@ -20,7 +20,7 @@ FROM oven/bun:1.2.11-alpine as runner
 
 WORKDIR /app
 
-COPY --from=builder /app/dist .
+COPY --from=builder /dist/ .
 
 EXPOSE 5173
 
