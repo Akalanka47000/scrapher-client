@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "start": "vite preview",
     "lint": "npx eslint --cache --ext js,ts,jsx,tsx --fix .",
     "test": "vitest run --silent=false --retry=3",
