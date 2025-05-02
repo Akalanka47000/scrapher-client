@@ -1,0 +1,31 @@
+name: Build and Push to GCR
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    env:
+        TAG: "ghcr.io/akalanka47000/scrapher-client:${{ github.sha }}-${{ github.run_attempt }}"
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker build
+        run: |
+            DOCKER_BUILDKIT=1 docker build -t $TAG \
+            --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} .
+        shell: bash
+
+      - name: Docker login
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u akalanka47000 --password-stdin
+        shell: bash
+
+      - name: Docker push
+        run: docker push $TAG
+        shell: bash
