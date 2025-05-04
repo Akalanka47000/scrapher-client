@@ -18,7 +18,8 @@ export function formatError(error: any) {
   if (error.response) {
     return {
       status: error.response?.status,
-      message: error.response?.data?.message
+      message: error.response?.data?.message,
+      detail: error.response?.data?.error
     };
   } else if (error.request) {
     return {

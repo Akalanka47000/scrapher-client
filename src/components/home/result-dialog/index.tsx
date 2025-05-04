@@ -4,10 +4,10 @@ import ErrorContent from './error';
 import SuccessContent from './success';
 
 export function ResultDialog() {
-  const { isResultDialogOpen, setIsResultDialogOpen, result } = useStore();
+  const { isResultDialogOpen, setIsResultDialogOpen, result, error } = useStore();
   return (
     <Dialog open={isResultDialogOpen} onOpenChange={setIsResultDialogOpen}>
-      {result?.error ? <ErrorContent error={result.error} /> : <SuccessContent result={result} />}
+      {error ? <ErrorContent error={error} /> : <SuccessContent result={result} />}
     </Dialog>
   );
 }

@@ -1,10 +1,8 @@
 import { IAPIResponse, RequestConfig } from './common';
 
-export type IPerformAnalysisRequest = RequestConfig<{
-  target_url: string;
-}>;
+export { IAPIResponse, RequestConfig };
 
-export interface IPerformAnalysisResult {
+export interface IAnalyseWebpageResult {
   html_version: string;
   page_title: string;
   heading_counts: {
@@ -14,10 +12,11 @@ export interface IPerformAnalysisResult {
   external_link_count: number;
   inaccessible_link_count: number;
   contains_login_form: boolean;
-  error?: {
-    code: number;
-    message: string;
-  };
 }
 
-export type IPerformAnalysisResponse = IAPIResponse<IPerformAnalysisResult>;
+export interface IAnalyzeWebpageError {
+  target_status?: number;
+  target_detail: string;
+}
+
+export type IAnalyseWebpageResponse = IAPIResponse<IAnalyseWebpageResult, IAnalyzeWebpageError>;

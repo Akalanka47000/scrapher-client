@@ -1,17 +1,18 @@
 import { create, StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { IPerformAnalysisResult } from '@/types';
+import { IAnalyseWebpageResult, IAnalyzeWebpageError } from '@/types';
 
 interface Slice {
   isResultDialogOpen: boolean;
-  openResultDialog: (arg: IPerformAnalysisResult) => void;
+  openResultDialog: (result: IAnalyseWebpageResult | null, err?: IAnalyzeWebpageError) => void;
   setIsResultDialogOpen: (arg: boolean) => void;
-  result?: IPerformAnalysisResult;
+  result?: IAnalyseWebpageResult | null;
+  error?: IAnalyzeWebpageError | null;
 }
 
 const createSlice: StateCreator<Slice> = (set) => ({
   isResultDialogOpen: false,
-  openResultDialog: (arg) => set({ result: arg, isResultDialogOpen: true }),
+  openResultDialog: (arg, err) => set({ result: arg ?? null, error: err ?? null, isResultDialogOpen: true }),
   setIsResultDialogOpen: (arg) => set({ isResultDialogOpen: arg })
 });
 

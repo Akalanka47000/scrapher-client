@@ -10,10 +10,10 @@ import {
   TableCell,
   TableRow
 } from '@/components/common';
-import { IPerformAnalysisResult } from '@/types';
+import { IAnalyseWebpageResult } from '@/types';
 import { DialogDescription } from '@radix-ui/react-dialog';
 
-export default function SuccessContent({ result }: { result?: Omit<IPerformAnalysisResult, 'error'> }) {
+export default function SuccessContent({ result }: { result?: IAnalyseWebpageResult | null }) {
   return (
     <DialogContent>
       <DialogHeader>
@@ -63,7 +63,7 @@ export default function SuccessContent({ result }: { result?: Omit<IPerformAnaly
         </TableBody>
       </Table>
       <DialogClose asChild>
-        <Button>Analyze Another URL</Button>
+        <Button>Analyze another URL</Button>
       </DialogClose>
     </DialogContent>
   );

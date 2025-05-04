@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button, Form, FormControl, FormField, FormItem, Input } from '@/components';
-import { performAnalysis } from '@/services';
+import { analyseWebpage } from '@/services';
 import { useStore } from '@/store';
 import { filterAndNotifyError } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,13 +18,19 @@ export function AnalysisForm() {
 
   const mutation = useMutation({
     mutationFn: (data: any) => {
-      return performAnalysis({ data });
+      return analyseWebpage({ options: { params: { url: data.target_url } } });
     },
     onSuccess: (result) => {
-      if (!result.data?.error) form.reset({ target_url: '' });
+      if (!result?.error) form.reset({ target_url: '' });
       openResultDialog(result.data);
     },
-    onError: filterAndNotifyError
+    onError: (error: any) => {
+      if (error?.detail) {
+        openResultDialog(null, error.detail);
+      } else {
+        filterAndNotifyError(error);
+      }
+    }
   });
 
   return (

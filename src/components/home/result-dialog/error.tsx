@@ -1,8 +1,8 @@
 import { Button, DialogClose, DialogContent, DialogHeader, DialogTitle } from '@/components/common';
-import { IPerformAnalysisResult } from '@/types';
+import { IAnalyzeWebpageError } from '@/types';
 import { DialogDescription } from '@radix-ui/react-dialog';
 
-export default function ErrorContent({ error }: { error?: IPerformAnalysisResult['error'] }) {
+export default function ErrorContent({ error }: { error?: IAnalyzeWebpageError }) {
   return (
     <DialogContent>
       <DialogHeader>
@@ -12,10 +12,17 @@ export default function ErrorContent({ error }: { error?: IPerformAnalysisResult
         </DialogDescription>
       </DialogHeader>
       <span className="text-center">
-        We received a status code of
-        <span className="font-bold text-primary">{error?.code}</span>
-        &nbsp; which usually translates to
-        <span className="font-bold text-primary">{error?.message}</span>
+        {error?.target_status ? (
+          <>
+            We received a status code of <span className="font-bold text-primary">{error?.target_status}</span>
+            &nbsp;which usually translates to <span className="font-bold text-primary">{error?.target_detail}</span>
+          </>
+        ) : (
+          <>
+            We didn&apos;t receive a proper status code from the server, but we&apos;re positive it translates to{' '}
+            <span className="font-bold text-primary">{error?.target_detail}</span>
+          </>
+        )}
       </span>
       <DialogClose asChild>
         <Button>Try another URL</Button>
