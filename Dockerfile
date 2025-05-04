@@ -26,4 +26,4 @@ COPY --from=builder /app/dist/ .
 
 EXPOSE 5173
 
-CMD ["sh", "-c",  "bun ./index.html --port=5173"]
+CMD ["sh", "-c",  "bun ./index.html --port=5173 --host=0.0.0.0"]
