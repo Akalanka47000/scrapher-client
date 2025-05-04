@@ -19,7 +19,7 @@ jobs:
       - name: Docker build
         run: |
             DOCKER_BUILDKIT=1 docker build -t $TAG \
-            --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} .
+            --build-arg VITE_API_BASE_URL=http://localhost:8080 . # This url is hardcoded since this image is only for use within a local docker compose file to speed up things
         shell: bash
 
       - name: GCR login
