@@ -1,8 +1,5 @@
 name: Build and Push to GCR
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
